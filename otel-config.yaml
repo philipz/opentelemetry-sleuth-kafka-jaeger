@@ -12,19 +12,26 @@ receivers:
 
 processors:
   batch:
+  spanmetrics:
+    metrics_exporter: prometheus
 
 exporters:
-  logging:
-    logLevel: debug
-  jaeger:
-    endpoint: jaeger-all-in-one:14250
+  otlp:
+    endpoint: "jaeger-all-in-one:4317"
     tls:
       insecure: true
+  logging:
+  prometheus:
+    endpoint: "otel-collector:9464"
 
 service:
   pipelines:
     traces:
-      receivers: [ otlp ]
-      processors: [ batch ]
-      exporters: [ logging, jaeger ]
+      receivers: [otlp]
+      processors: [spanmetrics, batch]
+      exporters: [logging, otlp]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [prometheus, logging]
   extensions: [ memory_ballast, zpages ]

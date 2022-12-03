@@ -2,10 +2,11 @@ FROM amazoncorretto:17-alpine3.15-jdk
 
 # Datadog agent installation
 #RUN apk --no-cache add curl && curl -s -L -o /dd-java-agent.jar "https://dtdg.co/latest-java-tracer"
+ADD target/customer-service-bff-0.0.1-SNAPSHOT.jar /app/customer-service-bff-0.0.1-SNAPSHOT.jar
+WORKDIR /app
+EXPOSE 8080
 
-RUN mkdir -m777 /etc/customer-service-bff
-WORKDIR /etc/customer-service-bff
-EXPOSE 8081
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.19.1/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
+ENV JAVA_TOOL_OPTIONS=-javaagent:/app/opentelemetry-javaagent.jar
 
-ADD target/customer-service-bff-0.0.1-SNAPSHOT.jar /etc/customer-service-bff
-ENTRYPOINT ["java", "-jar", "/etc/customer-service-bff/customer-service-bff-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/customer-service-bff-0.0.1-SNAPSHOT.jar"]
