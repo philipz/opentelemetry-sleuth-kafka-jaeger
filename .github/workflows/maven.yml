@@ -33,4 +33,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: code-coverage-report
-        path: target/*.jar
+        path: |
+            customer-service/target/*.jar
+            customer-service-bff/target/*.jar
+            order-service/target/*.jar
