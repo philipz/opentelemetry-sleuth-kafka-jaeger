@@ -6,7 +6,7 @@ ADD target/customer-service-bff-0.0.1-SNAPSHOT.jar /app/customer-service-bff-0.0
 WORKDIR /app
 EXPOSE 8080
 
-ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.19.1/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.21.0/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
 ENV JAVA_TOOL_OPTIONS=-javaagent:/app/opentelemetry-javaagent.jar
 
 ENTRYPOINT ["java", "-jar", "/app/customer-service-bff-0.0.1-SNAPSHOT.jar"]

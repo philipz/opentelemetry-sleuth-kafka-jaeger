@@ -7,7 +7,7 @@ COPY postgre.jks /tmp/postgre.jks
 WORKDIR /app
 EXPOSE 8081
 
-ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.19.1/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.21.0/opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
 ENV JAVA_TOOL_OPTIONS=-javaagent:/app/opentelemetry-javaagent.jar
 
 ENTRYPOINT ["java", "-jar", "/app/customer-service-0.0.1-SNAPSHOT.jar"]
